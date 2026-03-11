@@ -1,25 +1,9 @@
 ---
-import UnityIcon from "../icons/Unity.astro";
-import CsharpIcon from "../icons/C-sharp.astro";
 import InstagramIcon from "../icons/Instagram.astro";
-import LinkButton from "./LinkButton.astro";
-import LinkIcon from "../icons/Link.astro";
-// 1. Importamos el componente SocialPill
-import SocialPill from "./SocialPill.astro";
+import SocialButton from "./SocialButton.astro";
 
 const TAGS = {
-  UNITY: {
-    name: "Unity",
-    class: "bg-black text-white",
-    icon: UnityIcon,
-    link: "https://unity.com" // Opcional: enlace genérico
-  },
-  C_SHARP: {
-    name: "C#",
-    class: "bg-[#bd4fff] text-white",
-    icon: CsharpIcon,
-    link: "https://learn.microsoft.com/en-us/dotnet/csharp/"
-  },
+
   INSTAGRAM: {
     name: "Instagram",
     class: "bg-[#bd4fff] text-white",
@@ -142,10 +126,10 @@ const PROJECTS = [
           <li>
             {/* 2. Reemplazamos el span por SocialPill */}
             {/* Pasamos el href del tag y la clase personalizada */}
-            <SocialPill href={tag.link} class={`${tag.class} border-none`}>
+            <SocialButton href={tag.link} class={`${tag.class} border-none`}>
               <tag.icon class="size-5" /> 
               {tag.name}
-            </SocialPill>
+            </SocialButton>
           </li>
         ))}
       </ul>
