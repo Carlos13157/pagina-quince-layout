@@ -1,0 +1,41 @@
+---
+import ExperienceItem from "./ExperienceItem.astro";
+
+const EXPERIENCE = [
+  {
+    date: "",
+    tittle: "En mi primer añito...",
+    description: "Para mis padres habia nacido la princesa que tanto esperaban y junto a ellos he disfrutado una gran niñez.",
+    images: ["https://placehold.co/600x400.png", "https://placehold.co/600x400.png", "https://placehold.co/600x400.png" , "https://placehold.co/600x400.png"] // Múltiples imágenes
+  },
+  {
+    date: "",
+    tittle: "Para mis 5 añitos",
+    description: "Comenzaba mi niñez, empecé a tener sueños, aventuras, a conocer amigos y viví mi niñez de la mejor manera, con inolvidables momentos",
+    images: ["https://placehold.co/600x400.png", "https://placehold.co/600x400.png","https://placehold.co/600x400.png","https://placehold.co/600x400.png","https://placehold.co/600x400.png"]
+  },
+  {
+    date: "",
+    tittle: "A mis 10 añitos",
+    description: "La vida me empezaba a mostrar mi gusto por el deporte, el dibujo y comenzaba a tener una vida llena de aventura.",
+    images: ["https://placehold.co/600x400.png","https://placehold.co/600x400.png","https://placehold.co/600x400.png","https://placehold.co/600x400.png","https://placehold.co/600x400.png"] 
+  },
+  {
+    date: "",
+    tittle: "Ahora en mis 15 años",
+    description: "Me doy cuenta que he tenido una vida maravillosa porque tengo a mi lado una familia que me ama y unos amigos que me valoran como soy, ahora me espera empezar a construir mi propia vida de la mano de ustedes como mi mejor apoyo...",
+    images: ["https://placehold.co/600x400.png","https://placehold.co/600x400.png","https://placehold.co/600x400.png","https://placehold.co/600x400.png","https://placehold.co/600x400.png", "https://placehold.co/600x400.png", "https://placehold.co/600x400.png", "https://placehold.co/600x400.png", "https://placehold.co/600x400.png", "https://placehold.co/600x400.png", "https://placehold.co/600x400.png", "https://placehold.co/600x400.png"] 
+  }
+];
+---
+
+<ol class="relative border-s border-gray-200 dark:border-gray-700 ml-3">
+  {
+    EXPERIENCE.map((experience) => (
+      <li class="mb-10 ms-4">
+        <ExperienceItem {...experience} />
+        
+      </li>
+    ))
+  }
+</ol>

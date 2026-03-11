@@ -1,0 +1,40 @@
+
+<div 
+  id="shapePreload" 
+  class="fixed top-[-50%] left-[-50%] w-[200%] h-[200vh] bg-[#69ffd5] z-1000000 rounded-full pointer-events-none"
+></div>
+
+<style>
+  
+  @media (max-width: 767px) {
+    #shapePreload {
+      border-radius: 500px;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+
+  function runEntranceAnimation() {
+    const shapeElement = document.getElementById('shapePreload');
+    
+    if (shapeElement) {
+      
+      gsap.set(shapeElement, { yPercent: 0 });
+
+
+      gsap.to(shapeElement, {
+        yPercent: 100,
+        ease: "power1.out",
+        duration: 3,
+        delay: 0.2, 
+      });
+    }
+  }
+
+
+  document.addEventListener("DOMContentLoaded", runEntranceAnimation);
+
+
+</script>

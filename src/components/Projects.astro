@@ -1,0 +1,163 @@
+---
+import UnityIcon from "../icons/Unity.astro";
+import CsharpIcon from "../icons/C-sharp.astro";
+import InstagramIcon from "../icons/Instagram.astro";
+import LinkButton from "./LinkButton.astro";
+import LinkIcon from "../icons/Link.astro";
+// 1. Importamos el componente SocialPill
+import SocialPill from "./SocialPill.astro";
+
+const TAGS = {
+  UNITY: {
+    name: "Unity",
+    class: "bg-black text-white",
+    icon: UnityIcon,
+    link: "https://unity.com" // Opcional: enlace genérico
+  },
+  C_SHARP: {
+    name: "C#",
+    class: "bg-[#bd4fff] text-white",
+    icon: CsharpIcon,
+    link: "https://learn.microsoft.com/en-us/dotnet/csharp/"
+  },
+  INSTAGRAM: {
+    name: "Instagram",
+    class: "bg-[#bd4fff] text-white",
+    icon: InstagramIcon,
+    link: "https://www.instagram.com/salondeprincesasoficial?igsh=MTdxNWE3YWl1czE3Ng==" // Enlace a tu Instagram
+  },
+  INSTAGRAM2: {
+    name: "Instagram",
+    class: "bg-[#bd4fff] text-white",
+    icon: InstagramIcon,
+    link: "https://www.instagram.com/fotoestudiosbarranquilla?igsh=MTkwejgyaGR6N3RzcQ==" // Enlace a tu Instagram
+  },
+  INSTAGRAM3: {
+    name: "Instagram",
+    class: "bg-[#bd4fff] text-white",
+    icon: InstagramIcon,
+    link: "https://www.instagram.com/bellav.naturale?igsh=MXdqOWN1dXk2MDJtdA==" // Enlace a tu Instagram
+  },
+  INSTAGRAM4: {
+    name: "Instagram",
+    class: "bg-[#bd4fff] text-white",
+    icon: InstagramIcon,
+    link: "https://www.instagram.com/luiscortesjoyeros?igsh=bmxrNXl1MTUwanJ1" // Enlace a tu Instagram
+  },
+  INSTAGRAM5: {
+    name: "Instagram",
+    class: "bg-[#bd4fff] text-white",
+    icon: InstagramIcon,
+    link: "https://www.instagram.com/centro_recreativo_palmeras?igsh=Znl3MHRyaDJyYzdp" // Enlace a tu Instagram
+  },
+  INSTAGRAM6: {
+    name: "Instagram",
+    class: "bg-[#bd4fff] text-white",
+    icon: InstagramIcon,
+    link: "https://www.instagram.com/lupita_pinatas_peluches?igsh=MTlja3Jma3g1MmowZw==" // Enlace a tu Instagram
+  },
+  INSTAGRAM7: {
+    name: "Instagram",
+    class: "bg-[#bd4fff] text-white",
+    icon: InstagramIcon,
+    link: "https://www.instagram.com/calzado_europha?igsh=MTU3am01YW14cnRxeQ==" // Enlace a tu Instagram
+  },
+};
+
+const PROJECTS = [
+  {
+    tittle: "Salon de princesas - Bogota D.C",
+    description:
+      "",
+    link: "",
+    github: "",
+    image: "",
+    tags: [TAGS.INSTAGRAM], // Ejemplo con dos tags
+  },
+  {
+    tittle: "Foto Estudio Barranquilla - Barranquilla",
+    description:
+      "",
+    link: "",
+    github: "",
+    image: "",
+    tags: [TAGS.INSTAGRAM2], // Ejemplo con dos tags
+  },
+  {
+    tittle: "Bella V Naturale - Armenia, Quindio",
+    description:
+      "",
+    link: "",
+    github: "",
+    image: "",
+    tags: [TAGS.INSTAGRAM3], // Ejemplo con dos tags
+  },
+  {
+    tittle: "Luis Cortes Joyeros - Bogota D.C",
+    description:
+      "",
+    link: "",
+    github: "",
+    image: "",
+    tags: [TAGS.INSTAGRAM4], // Ejemplo con dos tags
+  },
+  {
+    tittle: "Centro Recreativo Las Palmeras - Gachancipa",
+    description:
+      "",
+    link: "",
+    github: "",
+    image: "",
+    tags: [TAGS.INSTAGRAM5], // Ejemplo con dos tags
+  },
+  {
+    tittle: "Lupita Piñatas y Peluches - Tocancipá",
+    description:
+      "",
+    link: "",
+    github: "",
+    image: "",
+    tags: [TAGS.INSTAGRAM6], // Ejemplo con dos tags
+  },
+  {
+    tittle: "Calzado Europha - Bogota D.C",
+    description:
+      "",
+    link: "",
+    github: "",
+    image: "",
+    tags: [TAGS.INSTAGRAM7], // Ejemplo con dos tags
+  },
+];
+---
+
+{
+  PROJECTS.map(({ tittle, description, image, tags, link }) => (
+    <article class="mb-10 ml-3 mr-3">
+      <h3 class="text-2xl font-semibold text-white-200/80 mb-2 mt-4">{tittle}</h3>
+      <p class="text-lg mb-4 text-pretty">{description}</p>
+      
+      <ul class="flex gap-x-4 flex-row mb-6">
+        {tags.map((tag) => (
+          <li>
+            {/* 2. Reemplazamos el span por SocialPill */}
+            {/* Pasamos el href del tag y la clase personalizada */}
+            <SocialPill href={tag.link} class={`${tag.class} border-none`}>
+              <tag.icon class="size-5" /> 
+              {tag.name}
+            </SocialPill>
+          </li>
+        ))}
+      </ul>
+
+      {/* Imagen y botones de abajo (comentados o activos según prefieras) */}
+      {image && (
+        <img
+          class="rounded shadow-2xl shadow-white/10"
+          src={image}
+          alt={`Screenshot project ${tittle}`}
+        />
+      )}
+    </article>
+  ))
+}

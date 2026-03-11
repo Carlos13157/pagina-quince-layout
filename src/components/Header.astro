@@ -1,0 +1,45 @@
+---
+// Si vas a usar la imagen de perfil, puedes desbloquear esto:
+// import { Image } from "astro:assets";
+// import profile_photo from "../assets/profile-photo.jpg";
+---
+
+<header 
+  id="main-header"
+  class="fixed top-0 z-50 w-full transition-all duration-300 ease-in-out py-4"
+>
+  <div class="max-w-300 mx-auto flex justify-center items-center px-4">
+    <nav
+      class="flex flex-wrap justify-center gap-3 sm:gap-6 md:gap-8 lg:gap-10 text-sm sm:text-base font-medium text-white"
+    >
+    <a class="nav-link px-2 py-1 hover:text-[#75ff84] transition" href="#top">Inicio</a>
+    <a class="nav-link px-2 py-1 hover:text-[#75ff84] transition" href="#bienvenida">Bienvenidos</a>
+      <a class="nav-link px-2 py-1 hover:text-[#75ff84] transition" href="#mi-vida">Mi Vida</a>
+      <a class="nav-link px-2 py-1 hover:text-[#75ff84] transition" href="#nuestra-ayuda">Apoyo</a>
+      <!-- <a class="nav-link px-2 py-1 hover:text-orange-400 transition" href="mailto:calejoga@gmail.com">Contacto</a> -->
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('main-header');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  window.onscroll = function() {
+    // Si el scroll baja más de 50px
+    if (window.scrollY > 50) {
+      header?.classList.add('bg-black/60', 'backdrop-blur-md', 'py-3', 'shadow-lg');
+      header?.classList.remove('py-4');
+    } else {
+      header?.classList.remove('bg-black/60', 'backdrop-blur-md', 'py-3', 'shadow-lg');
+      header?.classList.add('py-4');
+    }
+  };
+</script>
+
+<style>
+  /* Aseguramos que el header sea siempre visible sobre el Hero */
+  #main-header {
+    will-change: transform, background-color;
+  }
+</style>

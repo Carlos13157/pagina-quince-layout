@@ -1,0 +1,140 @@
+---
+interface Props {
+  imgUrl?: string;
+}
+const { imgUrl = "https://assets.codepen.io/16327/flair-26.png" } = Astro.props;
+
+import SectionContainer from "../components/SectionContainer.astro";
+import UserHeartIcon from "../icons/UserHeart.astro";
+import HandHeartShakeIcon from "../icons/HandHeartShake.astro";
+import Projects from "../components/Projects.astro";
+import Experience from "../components/Experience.astro";
+import AboutMe from "../components/AboutMe.astro";
+import PartyIcon from "../icons/Party.astro";
+---
+
+<div class="relative w-full">
+  <div id="motion-section" class="relative w-full">
+    
+    <!-- Punto Inicial (PNG) -->
+    <div id="start-point" class="container-marker initial absolute left-[72%] top-0 w-16 h-16 z-50">
+      <div id="moving-box" class="w-16 h-16 md:w-20 md:h-20 bg-contain bg-no-repeat bg-center" style={`background-image: url(${imgUrl});`}>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 1 -->
+    <section class="relative ml-5 mr-5">
+        <SectionContainer id="bienvenida">
+            <h2 class="text-2xl md:text-3xl font-semibold mb-6 flex gap-x-3 items-center pt-10">
+                <PartyIcon class="size-9"/> ¡Bienvenidos!
+            </h2>
+            <AboutMe/>
+        </SectionContainer>
+        
+        <!-- WAYPOINT 1: "Anclado" al final de la sección 1, pero sin ocupar espacio -->
+        <div class="container-marker absolute -bottom-10 left-[10%] w-5 h-5">
+            <!-- marcador invisible o un punto pequeño para debugear -->
+            <div class="marker opacity-0"></div> 
+        </div>
+    </section>
+
+    <!-- SECCIÓN 2 -->
+    <section class="relative ml-5 mr-5">
+        <SectionContainer id="mi-vida">
+            <h2 class="text-2xl md:text-3xl font-semibold mb-6 flex gap-x-3 items-center">
+                <UserHeartIcon class="size-7"/> Te cuento mi vida...
+            </h2>
+            <Experience />
+        </SectionContainer>
+
+        <!-- WAYPOINT 2: Flotando a la derecha en medio de esta sección -->
+        <div class="container-marker absolute top-1/2 right-[5%] w-5 h-5">
+            <div class="marker opacity-0"></div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 3 -->
+    <section class="relative ">
+        <SectionContainer id="nuestra-ayuda">
+            <h2 class="text-2xl md:text-3xl font-semibold mb-6 flex gap-x-3 items-center">
+                <HandHeartShakeIcon class="size-7"/> Quienes nos ayudaron...
+            </h2>
+            <Projects/>
+        </SectionContainer>
+
+        <!-- WAYPOINT 3: Un poco después de los proyectos -->
+        <div class="container-marker absolute -bottom-20 left-[20%] w-5 h-5">
+            <div class="marker opacity-0"></div>
+        </div>
+    </section>
+
+    <!-- Último punto final de la web -->
+    <div id="last-marker" class="container-marker absolute bottom-0 right-[10%] w-5 h-5">
+      <div class="marker opacity-0"></div>
+    </div>
+  </div>
+
+  <div id="final-trigger" class="h-20"></div>
+</div>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { MotionPathPlugin } from "gsap/MotionPathPlugin";
+
+  gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+
+  let ctx: gsap.Context;
+
+  function initAnimation() {
+    if (ctx) ctx.revert();
+
+    ctx = gsap.context(() => {
+      const box = document.querySelector("#moving-box") as HTMLElement;
+      const startPoint = document.querySelector("#start-point") as HTMLElement;
+      const section = document.querySelector("#motion-section") as HTMLElement;
+      if (!box || !startPoint || !section) return;
+      
+      // Forzar un refresh de las posiciones antes de calcular
+      ScrollTrigger.refresh();
+
+      const startRect = startPoint.getBoundingClientRect();
+      // Calculamos la posición central inicial del PNG respecto al DOCUMENTO
+      const startX = startRect.left + startRect.width / 2;
+      const startY = startRect.top + startRect.height / 2 + window.scrollY;
+
+      const containers = gsap.utils.toArray(".container-marker:not(.initial)") as HTMLElement[];
+
+      const points = containers.map((container) => {
+        const r = container.getBoundingClientRect();
+        return {
+          x: (r.left + r.width / 2) - startX,
+          y: (r.top + r.height / 2 + window.scrollY) - startY
+        };
+      });
+
+      gsap.to(box, {
+        scrollTrigger: {
+          trigger: "#motion-section",
+          start: "top center", // Empieza cuando el inicio de la zona llega al centro
+          end: "bottom center", // Termina cuando el final llega al centro
+          scrub: 1.2,
+          invalidateOnRefresh: true,
+        },
+        motionPath: {
+          path: points,
+          curviness: 1.5,
+          autoRotate: false
+        },
+        ease: "none"
+      });
+    });
+  }
+
+  // Usamos un pequeño delay para asegurar que el DOM y Tailwind terminaron de acomodar todo
+  window.addEventListener("load", () => {
+    setTimeout(initAnimation, 100);
+  });
+  
+  window.addEventListener("resize", initAnimation);
+</script>

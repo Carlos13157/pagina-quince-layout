@@ -1,0 +1,64 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+  bgImage: string;
+}
+
+const { title, subtitle, bgImage } = Astro.props;
+---
+
+<section class="relative h-[80vh] sm:h-screen w-full overflow-hidden flex items-center justify-center">
+  <!-- Fondo con imagen y efecto Parallax -->
+  <div 
+    class="absolute inset-0 z-0 parallax-bg"
+    style={`background-image: url('${bgImage}');`}
+  >
+  </div>
+
+  <!-- Capa de oscurecimiento (Overlay) para asegurar legibilidad -->
+  <div class="absolute inset-0 bg-black/50 z-10"></div>
+
+  <!-- Contenido Centralizado -->
+  <div class="relative z-20 text-center px-6 w-full max-w-5xl mx-auto">
+    <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-8xl font-black text-white leading-tight drop-shadow-2xl">
+      {title}
+    </h1>
+    
+    <div class="w-20 h-1 bg-[#69ffd5] mx-auto my-6"></div> <!-- Adorno visual -->
+
+    <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-100 max-w-2xl mx-auto font-light drop-shadow-md">
+      {subtitle}
+    </p>
+
+    
+  </div>
+</section>
+
+<style>
+  .parallax-bg {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    
+    background-attachment: fixed;
+    
+    
+    height: 100%;
+    width: 100%;
+  }
+
+  
+  @media (pointer: coarse) {
+    .parallax-bg {
+      background-attachment: scroll;
+      
+    }
+  }
+
+  
+  section {
+    height: 100svh; 
+  }
+</style>

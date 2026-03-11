@@ -1,0 +1,64 @@
+---
+---
+<!-- El modal está oculto por defecto (hidden) -->
+<div id="image-modal" class="fixed inset-0 z-100 hidden items-center justify-center bg-black/80 backdrop-blur-md p-4 transition-all duration-300">
+  
+  <!-- Botón Cerrar -->
+  <button id="close-modal" class="absolute top-5 right-5 text-white hover:text-red-500 transition-colors">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
+
+  <div class="relative max-w-5xl max-h-screen flex flex-col items-center">
+    <!-- Imagen Grande -->
+    <img id="modal-img" src="" alt="Vista previa" class="max-w-full max-h-[80vh] rounded-lg shadow-2xl object-contain" />
+    
+    <!-- Botón Descargar -->
+    <a id="download-btn" href="" download class="mt-6 flex items-center gap-2 px-6 py-2 bg-[#69ffd5] hover:bg-[#75ff84] text-black font-bold rounded-full transition-all shadow-lg">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+      </svg>
+      Descargar Imagen
+    </a>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('image-modal');
+  const modalImg = document.getElementById('modal-img') as HTMLImageElement;
+  const downloadBtn = document.getElementById('download-btn') as HTMLAnchorElement;
+  const closeBtn = document.getElementById('close-modal');
+  const images = document.querySelectorAll('.img-inspect');
+
+  // Función para abrir modal
+  images.forEach(img => {
+    img.addEventListener('click', () => {
+      const src = (img as HTMLImageElement).src;
+      modalImg.src = src;
+      downloadBtn.href = src;
+      modal?.classList.remove('hidden');
+      modal?.classList.add('flex');
+      document.body.style.overflow = 'hidden'; // Bloquea el scroll del fondo
+    });
+  });
+
+  // Función para cerrar modal
+  const closeModal = () => {
+    modal?.classList.add('hidden');
+    modal?.classList.remove('flex');
+    document.body.style.overflow = 'auto'; // Reactiva el scroll
+  };
+
+  closeBtn?.addEventListener('click', closeModal);
+
+  // Cerrar al hacer clic fuera de la imagen (en el fondo)
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // Cerrar con tecla ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
